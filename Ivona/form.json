@@ -1,0 +1,30 @@
+{
+	"elements":
+	[
+		{ "name": "accessKey",     "type": "ValidationTextBox", "caption": "Access Key" },
+		{ "name": "secretKey",     "type": "ValidationTextBox", "caption": "Secret Key" },
+                { "name": "language",      "type": "ValidationTextBox", "caption": "Language" },
+                { "name": "voice",         "type": "ValidationTextBox", "caption": "Voice" },
+                { "name": "rate",          "type": "Select",            "caption": "Rate",
+                    "options": [
+                                 { "label": "x-slow(67%)",   "value": "x-slow" },
+                                 { "label": "slow(82%)",     "value": "slow" },
+                                 { "label": "medium(100%)",  "value": "medium" },
+                                 { "label": "fast(122%)",    "value": "fast" },
+                                 { "label": "x-fast(150%)",  "value": "x-fast" }
+                  ] },
+                { "name": "volume",        "type": "Select",            "caption": "Volume",
+                    "options": [
+                                 { "label": "silent(0%)",    "value": "silent" },
+                                 { "label": "x-soft(63%)",   "value": "x-soft" },
+                                 { "label": "soft(79%)",     "value": "soft" },
+                                 { "label": "medium(100%)",  "value": "medium" },
+                                 { "label": "loud(126%)",    "value": "loud" },
+                                 { "label": "x-loud(160%)",  "value": "x-loud" }
+                  ] },
+	        { "name": "defaultPath",   "type": "ValidationTextBox", "caption": "Default Path" },
+                { "name": "deleteFiles",   "type": "CheckBox",          "caption": "Delete Files" },
+                { "name": "deleteMinutes", "type": "NumberSpinner",     "caption": "Delete minutes after access" }
+
+	]
+}
