@@ -12,7 +12,7 @@ class Ivona extends IPSModule
         $this->RegisterPropertyString("accessKey", "");
         $this->RegisterPropertyString("secretKey", "");
         $this->RegisterPropertyString("language", "de-DE");
-        $this->RegisterPropertyString("voice", "de-DE");
+        $this->RegisterPropertyString("voice", "Marlene");
         $this->RegisterPropertyString("rate", "medium");
         $this->RegisterPropertyString("volume", "loud");
         $this->RegisterPropertyString("defaultPath", "");
@@ -39,7 +39,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
   if ($handle = opendir($path)) {
 
     while (false !== ($file = readdir($handle))) {
-      if ((time()-filectime($path./.$file)) < $minutes*60) {
+      if ((time()-filectime($path."/".$file)) < $minutes*60) {
         if (preg_match("/\.mp3$/i", $file)) {
           unlink($path."/".$file);
         }
