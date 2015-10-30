@@ -40,8 +40,8 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
 
     while (false !== ($file = readdir($handle))) {
       if ((time()-filectime($path.'/'.$file)) < $minutes*60) {  // 86400 = 60*60*24
-        if (preg_match('/\.mp3$/i', $file)) {
-          unlink($path.'/'.$file);
+        if (preg_match("/\.mp3$/i", $file)) {
+          unlink($path."/".$file);
         }
       }
     }
