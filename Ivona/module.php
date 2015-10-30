@@ -75,16 +75,12 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
         
     }
 
-    public function saveMP3($text, $file, $path = "NONE")
+    public function saveMP3($text, $file, $path = null )
     {
 
-        if($path === 'NONE'){
-          $path = $this->ReadPropertyString("defaultPath");
-        }
+        if($path === null) $path = $this->ReadPropertyString("defaultPath");
 
-        if($path === ''){
-         $path = '/tmp';
-        }
+        if($path === '') $path = '/tmp';
 
         $file = $path . "/" . $file;
 
