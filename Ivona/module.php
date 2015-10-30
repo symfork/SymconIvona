@@ -26,6 +26,8 @@ class Ivona extends IPSModule
         //Never delete this line!
         parent::ApplyChanges();
         
+        IPS_SetHidden($this->InstanceID,true);
+
         // End Register variables and Actions
         
         $deleteFilesScript = '<?
@@ -61,13 +63,6 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
         // End add scripts for regular status and grouping updates
     }
     
-    /**
-    * This function will be available automatically after the module is imported with the module control.
-    * Using the custom prefix this function will be callable from PHP and JSON-RPC through:
-    *
-    * SNS_Play($id);
-    *
-    */
     public function getMP3($text)
     {
         include_once(__DIR__ . "/ivona.php");
