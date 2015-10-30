@@ -66,12 +66,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
     public function getMP3($text)
     {
         include_once(__DIR__ . "/ivona.php");
-        (new new IVONA_TTS( $this->ReadPropertyString("accessKey") ,
-                            $this->ReadPropertyString("secretKey") ,
-                            $this->ReadPropertyString("language") ,
-                            $this->ReadPropertyString("voice") ,
-                            $this->ReadPropertyString("rate") ,
-                            $this->ReadPropertyString("volume")))->get_mp3($text);
+        (new new IVONA_TTS( $this->ReadPropertyString("accessKey") , $this->ReadPropertyString("secretKey") , $this->ReadPropertyString("language") , $this->ReadPropertyString("voice") , $this->ReadPropertyString("rate") , $this->ReadPropertyString("volume")))->get_mp3($text);
         
     }
 
@@ -89,12 +84,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
         $file = $path . "/" . $file;
 
         include_once(__DIR__ . "/ivona.php");
-        (new new IVONA_TTS( $this->ReadPropertyString("accessKey") ,
-                            $this->ReadPropertyString("secretKey") ,
-                            $this->ReadPropertyString("language") ,
-                            $this->ReadPropertyString("voice") ,
-                            $this->ReadPropertyString("rate") ,
-                            $this->ReadPropertyString("volume")))->save_mp3($text, $file);
+        (new new IVONA_TTS( $this->ReadPropertyString("accessKey") , $this->ReadPropertyString("secretKey") , $this->ReadPropertyString("language") , $this->ReadPropertyString("voice") , $this->ReadPropertyString("rate") , $this->ReadPropertyString("volume")))->save_mp3($text, $file);
         
     }
 }
