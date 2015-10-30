@@ -11,10 +11,10 @@ class Ivona extends IPSModule
         //You cannot use variables here. Just static values.
         $this->RegisterPropertyString("accessKey", "");
         $this->RegisterPropertyString("secretKey", "");
-        $this->RegisterPropertyString("language", "");
-        $this->RegisterPropertyString("voice", "");
-        $this->RegisterPropertyString("rate", "");
-        $this->RegisterPropertyString("volume", "");
+        $this->RegisterPropertyString("language", "de-DE");
+        $this->RegisterPropertyString("voice", "de-DE");
+        $this->RegisterPropertyString("rate", "medium");
+        $this->RegisterPropertyString("volume", "loud");
         $this->RegisterPropertyString("defaultPath", "");
         $this->RegisterPropertyBoolean("deleteFiles", true);
         $this->RegisterPropertyInteger("deleteMinutes", 15);
