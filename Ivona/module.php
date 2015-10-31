@@ -75,14 +75,14 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
         
     }
 
-    public function saveMP3($text, $file, $path = null )
+    public function saveMP3($text, $file)
     {
 
-        if($path === null) $path = $this->ReadPropertyString("defaultPath");
-
-        if($path === '') $path = '/tmp';
-
-        $file = $path . "/" . $file;
+        if ( dirname($file) === "."){
+          $path = $this->ReadPropertyString("defaultPath");
+          if($path === '') $path = '/tmp';
+          $file = $path . "/" . $file;
+        }
 
         include_once(__DIR__ . "/ivona.php");
         (new IVONA_TTS( $this->ReadPropertyString("accessKey") ,

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 class IVONA_TTS{
-    static  $utc_tz;
+    private $utc_tz      = "";
     private $access_key  = "";
     private $secret_key  = "";
     private $language    = "";
