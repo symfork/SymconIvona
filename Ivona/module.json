@@ -1,14 +1,11 @@
 {
-	"id": "{93FB29CB-ECB5-4E68-993E-8F2EDB68F521}",
-	"name": "Ivona",
-	"type": 3,
-	"vendor": "",
-	"aliases": 
-	[
-		"Ivona"
-	],
-	"parentRequirements": [],
-	"childRequirements": [],
-	"implemented": [],
-	"prefix": "IVNTTS"
+  "id": "{93FB29CB-ECB5-4E68-993E-8F2EDB68F521}",
+  "name": "Ivona",
+  "type": 3,
+  "vendor": "",
+  "aliases": [ "Ivona" ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "IVNTTS"
 }

@@ -28,8 +28,6 @@ class Ivona extends IPSModule
         
         IPS_SetHidden($this->InstanceID,true);
 
-        // End Register variables and Actions
-        
         $deleteFilesScript = '<?
 $path = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "defaultPath");
 
@@ -58,9 +56,6 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
 
         IPS_SetHidden($deleteScriptID,true);
         IPS_SetScriptTimer($deleteScriptID, 300); 
-
-
-        // End add scripts for regular status and grouping updates
     }
     
     public function getMP3($text)
@@ -72,12 +67,10 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
                                $this->ReadPropertyString("voice") , 
                                $this->ReadPropertyString("rate") , 
                                $this->ReadPropertyString("volume")))->get_mp3($text);
-        
     }
 
     public function saveMP3($text)
     {
-       
         $file_name = md5($text).".mp3";
 
         $path = $this->ReadPropertyString("defaultPath");
@@ -103,7 +96,6 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
                         $this->ReadPropertyString("volume")))->save_mp3($text, $save_file);
 
         return $return_file;
-        
     }
 }
 ?>
