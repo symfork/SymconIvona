@@ -87,7 +87,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
         $access_path = $this->ReadPropertyString("accessPath");
 
         if( $access_path ){
-          $return_file = $access_path."/".$file.
+          $return_file = $access_path."/".$file;
         }else{
           $return_file = $save_file;
         }
