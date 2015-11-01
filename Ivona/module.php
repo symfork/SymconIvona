@@ -78,7 +78,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
     public function saveMP3($text)
     {
        
-        $file_name = md5($text).".mp3"
+        $file_name = md5($text).".mp3";
 
         $path = $this->ReadPropertyString("defaultPath");
         if($path === '') $path = sys_get_temp_dir();
