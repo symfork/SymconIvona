@@ -92,7 +92,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
           $return_file = $save_file;
         }
 
-        if(file_exists($save_file) return $return_file;
+        if(file_exists($save_file)) return $return_file;
 
         include_once(__DIR__ . "/ivona.php");
         (new IVONA_TTS( $this->ReadPropertyString("accessKey") ,
