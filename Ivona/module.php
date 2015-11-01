@@ -82,12 +82,12 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
 
         $path = $this->ReadPropertyString("defaultPath");
         if($path === '') $path = sys_get_temp_dir();
-        $save_file = $path . "/" . $file;
+        $save_file = $path . "/" . $file_name;
 
         $access_path = $this->ReadPropertyString("accessPath");
 
         if( $access_path ){
-          $return_file = $access_path."/".$file;
+          $return_file = $access_path."/".$file_name;
         }else{
           $return_file = $save_file;
         }
