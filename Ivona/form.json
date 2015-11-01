@@ -25,7 +25,7 @@
 	        { "name": "defaultPath",     "type": "ValidationTextBox", "caption": "Default Path" },
                 { "name": "deleteFiles",     "type": "CheckBox",          "caption": "Delete Files" },
                 { "name": "deleteMinutes",   "type": "NumberSpinner",     "caption": "Delete minutes after access" },
-	        { "name": "accessPath",      "type": "ValidationTextBox", "caption": "Default Path" }
+	        { "name": "accessPath",      "type": "ValidationTextBox", "caption": "Access Path" }
 
 	]
 }
