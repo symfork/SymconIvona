@@ -18,7 +18,7 @@ class Ivona extends IPSModule
         $this->RegisterPropertyString("defaultPath", "");
         $this->RegisterPropertyBoolean("deleteFiles", true);
         $this->RegisterPropertyInteger("deleteMinutes", 15);
-
+        $this->RegisterPropertyString("accessPath", "");
     }
     
     public function ApplyChanges()
@@ -39,7 +39,7 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
   if ($handle = opendir($path)) {
 
     while (false !== ($file = readdir($handle))) {
-      if ((time()-filectime($path."/".$file)) < $minutes*60) {
+      if ((time()-fileatime($path."/".$file)) < $minutes*60) {
         if (preg_match("/\.mp3$/i", $file)) {
           unlink($path."/".$file);
         }
@@ -66,23 +66,33 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
     public function getMP3($text)
     {
         include_once(__DIR__ . "/ivona.php");
-        (new IVONA_TTS( $this->ReadPropertyString("accessKey") , 
-                        $this->ReadPropertyString("secretKey") , 
-                        $this->ReadPropertyString("language") , 
-                        $this->ReadPropertyString("voice") , 
-                        $this->ReadPropertyString("rate") , 
-                        $this->ReadPropertyString("volume")))->get_mp3($text);
+        return (new IVONA_TTS( $this->ReadPropertyString("accessKey") , 
+                               $this->ReadPropertyString("secretKey") , 
+                               $this->ReadPropertyString("language") , 
+                               $this->ReadPropertyString("voice") , 
+                               $this->ReadPropertyString("rate") , 
+                               $this->ReadPropertyString("volume")))->get_mp3($text);
         
     }
 
-    public function saveMP3($text, $file)
+    public function saveMP3($text)
     {
+       
+        $file_name = md5($text).".mp3"
 
-        if ( dirname($file) === "."){
-          $path = $this->ReadPropertyString("defaultPath");
-          if($path === '') $path = '/tmp';
-          $file = $path . "/" . $file;
+        $path = $this->ReadPropertyString("defaultPath");
+        if($path === '') $path = sys_get_temp_dir();
+        $save_file = $path . "/" . $file;
+
+        $access_path = $this->ReadPropertyString("accessPath");
+
+        if( $access_path ){
+          $return_file = $access_path."/".$file.
+        }else{
+          $return_file = $save_file;
         }
+
+        if(file_exists($save_file) return $return_file;
 
         include_once(__DIR__ . "/ivona.php");
         (new IVONA_TTS( $this->ReadPropertyString("accessKey") ,
@@ -90,7 +100,9 @@ if($path && IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "deleteFiles")){
                         $this->ReadPropertyString("language") , 
                         $this->ReadPropertyString("voice") ,
                         $this->ReadPropertyString("rate") , 
-                        $this->ReadPropertyString("volume")))->save_mp3($text, $file);
+                        $this->ReadPropertyString("volume")))->save_mp3($text, $save_file);
+
+        return $return_file;
         
     }
 }
