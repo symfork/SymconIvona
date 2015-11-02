@@ -37,7 +37,7 @@ class IVONA_TTS{
 
     public function get_mp3( $text )
     {
-        $payload = json_encode(array( ('Input')      => array(('Data')     => utf8_encode($text)),
+        $payload = json_encode(array( ('Input')      => array(('Data')     => $text),
                                       ('Parameters') => array(('Rate')     => $this->rate,
                                                               ('Volume')   => $this->volume),
                                       ('Voice')      => array(('Name')     => $this->voice,
