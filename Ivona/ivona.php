@@ -103,6 +103,12 @@ class IVONA_TTS{
             $verboseLog = stream_get_contents($verbose);
             #echo "Verbose information:\n<pre>", htmlspecialchars($verboseLog), "</pre>\n";
         }
+        
+        // check for magic number of mp3 with ID3 tag
+        if ( substr(bin2hex($result), 0, 6) != "494433" )
+          throw new Exception("Response from Ivona is no mp3: ".$result); 
+        
+
         return $result;
     }
     
