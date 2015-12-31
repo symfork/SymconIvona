@@ -4,8 +4,7 @@
 //   IVONA_TTS             ////////////////////////////////////////////////////////////
 //    by Titus 15.10.2015  ////////////////////////////////////////////////////////////
 //    enhanced by Thorsten Kugelberg 30.10.2015 ///////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-// contains dirty hack that has to be removed when hash functions are availabe in IPS /
+//    31.12.2015: removed diry hack for hash    ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -17,7 +16,6 @@ class IVONA_TTS{
     private $voice       = "";
     private $rate        = "";
     private $volume      = "";
-    private $hash_exists = "";
 
     public function __construct( $access_key, $secret_key , $language="de-DE", $voice="Marlene", $rate="medium", $volume="loud"){
         $this->utc_tz      = new \DateTimeZone( 'UTC' );
@@ -27,7 +25,6 @@ class IVONA_TTS{
         $this->voice       = $voice;
         $this->rate        = $rate;
         $this->volume      = $volume;
-        $this->hash_exists = function_exists('hash_hmac');
     }
 
     public function save_mp3($text, $filename) {
@@ -47,32 +44,14 @@ class IVONA_TTS{
         $longdate                 = $datestamp->format( "Ymd\\THis\\Z");
         $shortdate                = $datestamp->format( "Ymd" );
         $ksecret                  = 'AWS4' . $this->secret_key;
-        if($this->hash_exists){
-          $params                   = array( 'host'                 => 'tts.eu-west-1.ivonacloud.com',
-                                             'content-type'         => 'application/json',
-                                             'x-amz-content-sha256' => hash( 'sha256', $payload, false ),
-                                             'x-amz-date'           => $longdate );
-        }else{
-          $hash_command             = "php -r \"print(hash( 'sha256', '".str_replace('"','\"',$payload)."', false ));\"";
-          $params                   = array( 'host'                 => 'tts.eu-west-1.ivonacloud.com',
-                                             'content-type'         => 'application/json',
-                                             'x-amz-content-sha256' => exec($hash_command),
-                                             'x-amz-date'           => $longdate );
-        }
+        $params                   = array( 'host'                 => 'tts.eu-west-1.ivonacloud.com',
+                                           'content-type'         => 'application/json',
+                                           'x-amz-content-sha256' => hash( 'sha256', $payload, false ),
+                                           'x-amz-date'           => $longdate );
         $canonical_request        = $this->createCanonicalRequest( $params, $payload );
-        if($this->hash_exists){
-          $signed_request         = hash( 'sha256', $canonical_request, false );
-        }else{
-          $hash_command           = "php -r \"print(hash( 'sha256', '".$canonical_request."', false ));\"";
-          $signed_request         = exec($hash_command);
-        }
+        $signed_request           = hash( 'sha256', $canonical_request, false );
         $sign_string              = "AWS4-HMAC-SHA256\n{$longdate}\n$shortdate/eu-west-1/tts/aws4_request\n" . $signed_request;
-        if($this->hash_exists){
-          $signature              = hash_hmac( 'sha256', $sign_string, hash_hmac( 'sha256', 'aws4_request', hash_hmac( 'sha256', 'tts', hash_hmac( 'sha256', 'eu-west-1', hash_hmac( 'sha256', $shortdate, $ksecret, true ) , true ) , true ), true ));
-        }else{
-          $signature_command      = "php -r \"print(hash_hmac( 'sha256', '".$sign_string."', hash_hmac( 'sha256', 'aws4_request', hash_hmac( 'sha256', 'tts', hash_hmac( 'sha256', 'eu-west-1', hash_hmac( 'sha256', '".$shortdate."', '".$ksecret."', true ) , true ) , true ), true ) ) );\"";
-          $signature              = exec($signature_command);;
-        }
+        $signature                = hash_hmac( 'sha256', $sign_string, hash_hmac( 'sha256', 'aws4_request', hash_hmac( 'sha256', 'tts', hash_hmac( 'sha256', 'eu-west-1', hash_hmac( 'sha256', $shortdate, $ksecret, true ) , true ) , true ), true ));
         $params['Authorization']  = "AWS4-HMAC-SHA256 Credential=" . $this->access_key . "/$shortdate/eu-west-1/tts/aws4_request, " .
                                     "SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, " .
                                     "Signature=$signature";
@@ -128,12 +107,7 @@ class IVONA_TTS{
             $canonical_request[] = $k . ':' . $v;
         $canonical_request[] = '';
         $canonical_request[] = implode( ';', array_keys( $can_headers ) );
-        if($this->hash_exists){
-          $canonical_request[] = hash( 'sha256', $payload, false );
-        }else{
-          $hash_command        = "php -r \"print(hash( 'sha256', '".str_replace('"','\"',$payload)."', false ));\"";
-          $canonical_request[] = exec($hash_command);
-        }
+        $canonical_request[] = hash( 'sha256', $payload, false );
         $canonical_request = implode( "\n", $canonical_request );
         return $canonical_request;
     }
